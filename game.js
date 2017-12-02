@@ -31,6 +31,9 @@ const row5 = 425
 
 ctx.fillText('I', col1 + 5, row1)
 
+m = new Militia();
+ctx.fillText(m.unitText, col1, row2);
+
 // var gameloop = setInterval(update, TIME_PER_FRAME);
 var counter = 0;
 
