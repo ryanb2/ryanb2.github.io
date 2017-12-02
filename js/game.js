@@ -8,6 +8,11 @@ var ctx = stage.getContext("2d");
 ctx.fillStyle = "black";
 ctx.font = GAME_FONTS;
 
+var selectedUnit = null;
+
+// NOTE: For testing purposes. This will need to be changed once Turns and player 2 are implemented
+var player = 1;
+
 // Monitor clicks on canvas
 stage.addEventListener("click", performAction);
 
@@ -20,7 +25,8 @@ drawUI()
 ctx.fillStyle = "#000";
 
 m = new Militia();
-ctx.fillText(m.unitText, COL_A_MID, ROW_2_MID);
+selectedUnit = m;
+
 
 // var gameloop = setInterval(update, TIME_PER_FRAME);
 var counter = 0;
@@ -98,22 +104,36 @@ function drawButtons() {
     ctx.fillText('End Turn', stage.width - 170, stage.height - 100)
 }
 
-function getMousePos(canvas, event) {
-    var rect = canvas.getBoundingClientRect();
-    return {
-        x: event.clientX - rect.left,
-        y: event.clientY - rect.top
-    };
-}
-
 function performAction(event){
-    clickInGrid = false;
-
     coordX = event.pageX - stage.offsetLeft;
     coordY = event.pageY - stage.offsetTop;
 
+    console.log('X: ' + coordX);
+    console.log('Y: ' + coordY);
+
+    checkEndTurnClick(coordX, coordY);
+    checkGridClick(coordX, coordY);
+    
+}
+
+function checkEndTurnClick(coordX, coordY){
+    if(coordX > 50 && coordX < 200 && coordY > stage.height - 125 && coordY < stage.height - 85){
+        console.log('player 1 end turn clicked')
+    } else if(coordX > stage.width - 200 && coordX < stage.width - 50 && coordY > stage.height - 125 && coordY < stage.height - 85){
+        console.log('player 2 end turn clicked')
+    }
+}
+
+function checkGridClick(coordX, coordY){
+    clickInGrid = false;
+
+    var selectedCol = null;
+    var selectedColVal = null;
+
     if(coordX > COL_A_START && coordX < COL_B_START){
         console.log("Column A");
+        selectedCol = 'A';
+        selectedColVal = COL_A_MID;
         clickInGrid = true;
     }
     else if(coordX > COL_B_START && coordX < COL_C_START){
@@ -134,6 +154,8 @@ function performAction(event){
     }
     else if(coordX > COL_F_START && coordX < VERT_END){
         console.log("Column F");
+        selectedCol = 'F';
+        selectedColVal = COL_F_MID;
         clickInGrid = true;
     }
     else {
@@ -144,22 +166,66 @@ function performAction(event){
     if(clickInGrid){
         if(coordY > ROW_1_START && coordY < ROW_2_START){
             console.log("Row 1");
-            
+            if(player == 1 && selectedCol == 'A'){
+                if(selectedUnit != null){
+                    ctx.fillText(selectedUnit.unitText, selectedColVal, ROW_1_MID);
+                }
+            } else if(player == 2 && selectedCol == 'F'){
+                if(selectedUnit != null){
+                    ctx.fillText(selectedUnit.unitText, selectedColVal, ROW_1_MID);
+                }
+            }
         }
         else if(coordY > ROW_2_START && coordY < ROW_3_START){
             console.log("Row 2");
+            if(player == 1 && selectedCol == 'A'){
+                if(selectedUnit != null){
+                    ctx.fillText(selectedUnit.unitText, selectedColVal, ROW_2_MID);
+                }
+            } else if(player == 2 && selectedCol == 'F'){
+                if(selectedUnit != null){
+                    ctx.fillText(selectedUnit.unitText, selectedColVal, ROW_2_MID);
+                }
+            }
             clickInGrid = true;
         }
         else if(coordY > ROW_3_START && coordY < ROW_4_START){
             console.log("Row 3");
+            if(player == 1 && selectedCol == 'A'){
+                if(selectedUnit != null){
+                    ctx.fillText(selectedUnit.unitText, selectedColVal, ROW_3_MID);
+                }
+            } else if(player == 2 && selectedCol == 'F'){
+                if(selectedUnit != null){
+                    ctx.fillText(selectedUnit.unitText, selectedColVal, ROW_3_MID);
+                }
+            }
             clickInGrid = true;
         }
         else if(coordY > ROW_4_START && coordY < ROW_5_START){
             console.log("Row 4");
+            if(player == 1 && selectedCol == 'A'){
+                if(selectedUnit != null){
+                    ctx.fillText(selectedUnit.unitText, selectedColVal, ROW_4_MID);
+                }
+            } else if(player == 2 && selectedCol == 'F'){
+                if(selectedUnit != null){
+                    ctx.fillText(selectedUnit.unitText, selectedColVal, ROW_4_MID);
+                }
+            }
             clickInGrid = true;
         }
         else if(coordY > ROW_5_START && coordY < HORIZ_END){
             console.log("Row 5");
+            if(player == 1 && selectedCol == 'A'){
+                if(selectedUnit != null){
+                    ctx.fillText(selectedUnit.unitText, selectedColVal, ROW_5_MID);
+                }
+            } else if(player == 2 && selectedCol == 'F'){
+                if(selectedUnit != null){
+                    ctx.fillText(selectedUnit.unitText, selectedColVal, ROW_5_MID);
+                }
+            }
             clickInGrid = true;
         }
         else {
