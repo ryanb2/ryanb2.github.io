@@ -107,6 +107,66 @@ function getMousePos(canvas, event) {
 }
 
 function performAction(event){
-    console.log('X: ' + event.clientX);
-    console.log('Y: ' + event.clientY);
+    clickInGrid = false;
+
+    coordX = event.pageX - stage.offsetLeft;
+    coordY = event.pageY - stage.offsetTop;
+
+    if(coordX > COL_A_START && coordX < COL_B_START){
+        console.log("Column A");
+        clickInGrid = true;
+    }
+    else if(coordX > COL_B_START && coordX < COL_C_START){
+        console.log("Column B");
+        clickInGrid = true;
+    }
+    else if(coordX > COL_C_START && coordX < COL_D_START){
+        console.log("Column C");
+        clickInGrid = true;
+    }
+    else if(coordX > COL_D_START && coordX < COL_E_START){
+        console.log("Column D");
+        clickInGrid = true;
+    }
+    else if(coordX > COL_E_START && coordX < COL_F_START){
+        console.log("Column E");
+        clickInGrid = true;
+    }
+    else if(coordX > COL_F_START && coordX < VERT_END){
+        console.log("Column F");
+        clickInGrid = true;
+    }
+    else {
+        console.log("X click not in grid");
+        clickInGrid = false;
+    }
+
+    if(clickInGrid){
+        if(coordY > ROW_1_START && coordY < ROW_2_START){
+            console.log("Row 1");
+            
+        }
+        else if(coordY > ROW_2_START && coordY < ROW_3_START){
+            console.log("Row 2");
+            clickInGrid = true;
+        }
+        else if(coordY > ROW_3_START && coordY < ROW_4_START){
+            console.log("Row 3");
+            clickInGrid = true;
+        }
+        else if(coordY > ROW_4_START && coordY < ROW_5_START){
+            console.log("Row 4");
+            clickInGrid = true;
+        }
+        else if(coordY > ROW_5_START && coordY < HORIZ_END){
+            console.log("Row 5");
+            clickInGrid = true;
+        }
+        else {
+            console.log("Y click not in grid")
+            clickInGrid = false;
+        }
+    }
+
+    console.log(clickInGrid);
 }
