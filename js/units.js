@@ -24,6 +24,14 @@ class Unit {
         this.health = newHealth;
     }
 
+    set unitPosition(newPosition) {
+        this.position = newPosition;
+    }
+
+    get unitPosition() {
+        return this.position;
+    }
+
 }
 
 class Pawn extends Unit {

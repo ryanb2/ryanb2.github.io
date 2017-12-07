@@ -135,11 +135,22 @@ function performAction(event){
 function checkEndTurnClick(coordX, coordY){
     if(coordX > 50 && coordX < 200 && coordY > stage.height - 125 && coordY < stage.height - 85){
         console.log('player 1 end turn clicked')
+        selectedUnit = null;
         playerTurn = 2;
     } else if(coordX > stage.width - 200 && coordX < stage.width - 50 && coordY > stage.height - 125 && coordY < stage.height - 85){
         console.log('player 2 end turn clicked')
+        actionPhase()
+        selectedUnit = null;
         playerTurn = 1;
     }
+}
+
+function actionPhase() {
+    // updatePosition() of each Unit (do not redraw Units yet)
+    // check if any new positions are the same (two Units attack each other)
+        // flag Unit as "Do not move"
+        // resolve attack by reducing health and destoying Units
+    // draw Units at their new positions
 }
 
 function checkUnitClick(coordX, coordY){
