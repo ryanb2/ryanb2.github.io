@@ -10,6 +10,7 @@ ctx.font = GAME_FONTS;
 
 var selectedUnit = null;
 var spawnedUnit = null;
+var playerTurn = 1;
 
 // NOTE: For testing purposes. This will need to be changed once Turns and player 2 are implemented
 var player = 1;
@@ -47,19 +48,7 @@ function update() {
 function drawUI() {
     drawGrid()
     drawButtons()
-
-    ctx.fillStyle = "#000";
-    ctx.fillText('Units', 70, 50)
-    ctx.fillText('Units', stage.width - 170, 50)
-
-    ctx.strokeRect(70, 70, 50, 50)
-    ctx.fillText('I', 90, 100)
-
-    ctx.strokeRect(70, 150, 50, 50)
-    ctx.fillText('M', 85, 180)
-
-    ctx.strokeRect(70, 230, 50, 50)
-    ctx.fillText('K', 85, 260)
+    drawUnits()    
 }
 
 function drawGrid() {
@@ -106,6 +95,30 @@ function drawButtons() {
     ctx.fillText('End Turn', stage.width - 170, stage.height - 100)
 }
 
+function drawUnits() {
+    ctx.fillStyle = "#000";
+    ctx.fillText('Units', 70, 50)
+    ctx.fillText('Units', stage.width - 170, 50)
+
+    ctx.strokeRect(70, 70, 50, 50)
+    ctx.fillText('I', 90, 100)
+
+    ctx.strokeRect(70, 150, 50, 50)
+    ctx.fillText('M', 85, 180)
+
+    ctx.strokeRect(70, 230, 50, 50)
+    ctx.fillText('K', 85, 260)
+
+    ctx.strokeRect(stage.width - 170, 70, 50, 50)
+    ctx.fillText('I', stage.width - 150, 100)
+
+    ctx.strokeRect(stage.width - 170, 150, 50, 50)
+    ctx.fillText('M', stage.width - 155, 180)
+
+    ctx.strokeRect(stage.width - 170, 230, 50, 50)
+    ctx.fillText('K', stage.width - 155, 260)
+}
+
 function performAction(event){
     coordX = event.pageX - stage.offsetLeft;
     coordY = event.pageY - stage.offsetTop;
@@ -122,22 +135,40 @@ function performAction(event){
 function checkEndTurnClick(coordX, coordY){
     if(coordX > 50 && coordX < 200 && coordY > stage.height - 125 && coordY < stage.height - 85){
         console.log('player 1 end turn clicked')
+        playerTurn = 2;
     } else if(coordX > stage.width - 200 && coordX < stage.width - 50 && coordY > stage.height - 125 && coordY < stage.height - 85){
         console.log('player 2 end turn clicked')
+        playerTurn = 1;
     }
 }
 
 function checkUnitClick(coordX, coordY){
-    if(coordX > 70 && coordX < 120 ){
-        if(coordY > 70 && coordY < 120){
-            console.log('unit 1 clicked')
-            selectedUnit = 'pawn'
-        } else if(coordY > 150 && coordY < 200){
-            console.log('unit 2 clicked')
-            selectedUnit = 'militia'
-        } else if(coordY > 230 && coordY < 280){
-            console.log('unit 3 clicked')
-            selectedUnit = 'knight'
+    if(playerTurn == 1){
+        if(coordX > 70 && coordX < 120 ){
+            if(coordY > 70 && coordY < 120){
+                console.log('player 1 unit 1 clicked')
+                selectedUnit = 'pawn'
+            } else if(coordY > 150 && coordY < 200){
+                console.log('player 1 unit 2 clicked')
+                selectedUnit = 'militia'
+            } else if(coordY > 230 && coordY < 280){
+                console.log('player 1 unit 3 clicked')
+                selectedUnit = 'knight'
+            }
+        }
+    }  
+    if(playerTurn == 2){
+        if(coordX > stage.width - 170 && coordX < stage.width - 120 ){
+            if(coordY > 70 && coordY < 120){
+                console.log('player 2 unit 1 clicked')
+                selectedUnit = 'pawn'
+            } else if(coordY > 150 && coordY < 200){
+                console.log('player 2 unit 2 clicked')
+                selectedUnit = 'militia'
+            } else if(coordY > 230 && coordY < 280){
+                console.log('player 2 unit 3 clicked')
+                selectedUnit = 'knight'
+            }
         }
     }
 }
@@ -184,12 +215,12 @@ function checkGridClick(coordX, coordY){
     if(clickInGrid){
         if(coordY > ROW_1_START && coordY < ROW_2_START){
             console.log("Row 1");
-            if(player == 1 && selectedCol == 'A'){
+            if(playerTurn == 1 && selectedCol == 'A'){
                 if(selectedUnit != null){
                     spawnedUnit = createUnit(selectedUnit);                    
                     ctx.fillText(spawnedUnit.unitText, selectedColVal, ROW_1_MID);
                 }
-            } else if(player == 2 && selectedCol == 'F'){
+            } else if(playerTurn == 2 && selectedCol == 'F'){
                 if(selectedUnit != null){
                     spawnedUnit = createUnit(selectedUnit);
                     ctx.fillText(spawnedUnit.unitText, selectedColVal, ROW_1_MID);
@@ -198,12 +229,12 @@ function checkGridClick(coordX, coordY){
         }
         else if(coordY > ROW_2_START && coordY < ROW_3_START){
             console.log("Row 2");
-            if(player == 1 && selectedCol == 'A'){
+            if(playerTurn == 1 && selectedCol == 'A'){
                 if(selectedUnit != null){
                     spawnedUnit = createUnit(selectedUnit); 
                     ctx.fillText(spawnedUnit.unitText, selectedColVal, ROW_2_MID);
                 }
-            } else if(player == 2 && selectedCol == 'F'){
+            } else if(playerTurn == 2 && selectedCol == 'F'){
                 if(selectedUnit != null){
                     spawnedUnit = createUnit(selectedUnit); 
                     ctx.fillText(spawnedUnit.unitText, selectedColVal, ROW_2_MID);
@@ -213,12 +244,12 @@ function checkGridClick(coordX, coordY){
         }
         else if(coordY > ROW_3_START && coordY < ROW_4_START){
             console.log("Row 3");
-            if(player == 1 && selectedCol == 'A'){
+            if(playerTurn == 1 && selectedCol == 'A'){
                 if(selectedUnit != null){
                     spawnedUnit = createUnit(selectedUnit); 
                     ctx.fillText(spawnedUnit.unitText, selectedColVal, ROW_3_MID);
                 }
-            } else if(player == 2 && selectedCol == 'F'){
+            } else if(playerTurn == 2 && selectedCol == 'F'){
                 if(selectedUnit != null){
                     spawnedUnit = createUnit(selectedUnit); 
                     ctx.fillText(spawnedUnit.unitText, selectedColVal, ROW_3_MID);
@@ -228,12 +259,12 @@ function checkGridClick(coordX, coordY){
         }
         else if(coordY > ROW_4_START && coordY < ROW_5_START){
             console.log("Row 4");
-            if(player == 1 && selectedCol == 'A'){
+            if(playerTurn == 1 && selectedCol == 'A'){
                 if(selectedUnit != null){
                     spawnedUnit = createUnit(selectedUnit); 
                     ctx.fillText(spawnedUnit.unitText, selectedColVal, ROW_4_MID);
                 }
-            } else if(player == 2 && selectedCol == 'F'){
+            } else if(playerTurn == 2 && selectedCol == 'F'){
                 if(selectedUnit != null){
                     spawnedUnit = createUnit(selectedUnit); 
                     ctx.fillText(spawnedUnit.unitText, selectedColVal, ROW_4_MID);
@@ -243,12 +274,12 @@ function checkGridClick(coordX, coordY){
         }
         else if(coordY > ROW_5_START && coordY < HORIZ_END){
             console.log("Row 5");
-            if(player == 1 && selectedCol == 'A'){
+            if(playerTurn == 1 && selectedCol == 'A'){
                 if(selectedUnit != null){
                     spawnedUnit = createUnit(selectedUnit); 
                     ctx.fillText(spawnedUnit.unitText, selectedColVal, ROW_5_MID);
                 }
-            } else if(player == 2 && selectedCol == 'F'){
+            } else if(playerTurn == 2 && selectedCol == 'F'){
                 if(selectedUnit != null){
                     spawnedUnit = createUnit(selectedUnit); 
                     ctx.fillText(spawnedUnit.unitText, selectedColVal, ROW_5_MID);
