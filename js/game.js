@@ -268,13 +268,13 @@ function checkGridClick(coordX, coordY){
 function createUnit(selectedUnit){
     switch(selectedUnit){
         case 'pawn':
-            // TODO: create Knight object
+            return new Pawn();
             break;
         case 'militia':
             return new Militia();
             break;
         case 'knight':
-            // TODO: create Knight object
+            return new Knight();
             break;
     }
 }

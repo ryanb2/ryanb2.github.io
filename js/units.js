@@ -20,19 +20,17 @@ class Unit {
     //     throw new TypeError("Do not call abstract method foo from child.");
     // }
     // initialization goes here
-    
-
-}
-
-class Militia extends Unit {  
-    constructor() {
-        super(1, 1, [1, 0]);
-        this.unitText = 'M';
-    }  
-
     set unitHealth(newHealth) {
         this.health = newHealth;
     }
+
+}
+
+class Pawn extends Unit {
+    constructor() {
+        super(1, 1, [1, 0]);
+        this.unitText = 'I';
+    }  
 
     set unitPosition(newPosition) {
         this.position = newPosition;
@@ -42,4 +40,36 @@ class Militia extends Unit {
         ctx.fillStyle = color;
         ctx.fillText = (unitText, positionX, positionY);
     }
-};
+}
+
+class Militia extends Unit {  
+    constructor() {
+        super(1, 1, [1, 1]);
+        this.unitText = 'M';
+    }  
+
+    set unitPosition(newPosition) {
+        this.position = newPosition;
+    }
+    
+    drawUnit(ctx, color, unitText = 'M', positionX, positionY) {
+        ctx.fillStyle = color;
+        ctx.fillText = (unitText, positionX, positionY);
+    }
+}
+
+class Knight extends Unit {
+    constructor() {
+        super(2, 2, [1, 0]);
+        this.unitText = 'K';
+    }  
+
+    set unitPosition(newPosition) {
+        this.position = newPosition;
+    }
+    
+    drawUnit(ctx, color, unitText = 'M', positionX, positionY) {
+        ctx.fillStyle = color;
+        ctx.fillText = (unitText, positionX, positionY);
+    }
+}
