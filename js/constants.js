@@ -24,15 +24,15 @@ const ROW_4_START = 300;
 const ROW_5_START = 380;
 const HORIZ_END = 460;
 
-const COL_A_MID = 340
-const COL_B_MID = 440
-const COL_C_MID = 540
-const COL_D_MID = 640
-const COL_E_MID = 740
-const COL_F_MID = 840
+const COL_A_MID = 340;
+const COL_B_MID = 440;
+const COL_C_MID = 540;
+const COL_D_MID = 640;
+const COL_E_MID = 740;
+const COL_F_MID = 840;
 
-const ROW_1_MID = 105
-const ROW_2_MID = 185
-const ROW_3_MID = 265
-const ROW_4_MID = 345
-const ROW_5_MID = 425
+const ROW_1_MID = 105;
+const ROW_2_MID = 185;
+const ROW_3_MID = 265;
+const ROW_4_MID = 345;
+const ROW_5_MID = 425;

@@ -11,6 +11,7 @@ ctx.font = GAME_FONTS;
 var selectedUnit = null;
 var spawnedUnit = null;
 var playerTurn = 1;
+var spawnedObjects = [];
 
 // NOTE: For testing purposes. This will need to be changed once Turns and player 2 are implemented
 var player = 1;
@@ -147,11 +148,41 @@ function checkEndTurnClick(coordX, coordY){
 
 function actionPhase() {
     // updatePosition() of each Unit (do not redraw Units yet)
-    // check if any new positions are the same (two Units attack each other)
-        // flag Unit as "Do not move"
-        // resolve attack by reducing health and destoying Units
-    // draw Units at their new positions
+    for(var i = 0; i < spawnedObjects.length; i++){
+        console.log(spawnedObjects[i]);
+
+        // check if any new positions are the same (two Units attack each other)
+            // if duplicate position, flag Unit as "Do not move"
+            // resolve attack by reducing health and destoying Units
+
+        // var sorted_arr = spawnedObjects.slice().sort(); 
+        
+        // var results = [];
+        // for (var i = 0; i < sorted_arr.length - 1; i++) {
+        //     if (sorted_arr[i + 1] == sorted_arr[i]) {
+        //         results.push(sorted_arr[i]);
+        //     }
+        // }
+        
+        // console.log(results);
+
+        // draw Units at their new positions
+        if(spawnedObjects[i].canMove){
+            redrawUnit(spawnedObjects[i])
+            spawnedObjects[i].position = spawnedObjects[i].nextPosition;
+        }
+
+    }
+
 }
+
+function redrawUnit(unit){
+    ctx.fillStyle = "#AAA";
+    ctx.fillText(unit.unitText, unit.position[0], unit.position[1]);
+    ctx.fillStyle = '#000';
+    ctx.fillText(unit.unitText, unit.nextPosition[0], unit.nextPosition[1]);
+}
+
 
 function checkUnitClick(coordX, coordY){
     if(playerTurn == 1){
@@ -228,12 +259,12 @@ function checkGridClick(coordX, coordY){
             console.log("Row 1");
             if(playerTurn == 1 && selectedCol == 'A'){
                 if(selectedUnit != null){
-                    spawnedUnit = createUnit(selectedUnit);                    
+                    spawnedUnit = createUnit(selectedUnit, [0, 1]);                    
                     ctx.fillText(spawnedUnit.unitText, selectedColVal, ROW_1_MID);
                 }
             } else if(playerTurn == 2 && selectedCol == 'F'){
                 if(selectedUnit != null){
-                    spawnedUnit = createUnit(selectedUnit);
+                    spawnedUnit = createUnit(selectedUnit, [5, 1]);
                     ctx.fillText(spawnedUnit.unitText, selectedColVal, ROW_1_MID);
                 }
             }
@@ -242,12 +273,12 @@ function checkGridClick(coordX, coordY){
             console.log("Row 2");
             if(playerTurn == 1 && selectedCol == 'A'){
                 if(selectedUnit != null){
-                    spawnedUnit = createUnit(selectedUnit); 
+                    spawnedUnit = createUnit(selectedUnit, [0, 2]); 
                     ctx.fillText(spawnedUnit.unitText, selectedColVal, ROW_2_MID);
                 }
             } else if(playerTurn == 2 && selectedCol == 'F'){
                 if(selectedUnit != null){
-                    spawnedUnit = createUnit(selectedUnit); 
+                    spawnedUnit = createUnit(selectedUnit, [5, 2]); 
                     ctx.fillText(spawnedUnit.unitText, selectedColVal, ROW_2_MID);
                 }
             }
@@ -257,12 +288,12 @@ function checkGridClick(coordX, coordY){
             console.log("Row 3");
             if(playerTurn == 1 && selectedCol == 'A'){
                 if(selectedUnit != null){
-                    spawnedUnit = createUnit(selectedUnit); 
+                    spawnedUnit = createUnit(selectedUnit, [0, 3]); 
                     ctx.fillText(spawnedUnit.unitText, selectedColVal, ROW_3_MID);
                 }
             } else if(playerTurn == 2 && selectedCol == 'F'){
                 if(selectedUnit != null){
-                    spawnedUnit = createUnit(selectedUnit); 
+                    spawnedUnit = createUnit(selectedUnit, [5, 3]); 
                     ctx.fillText(spawnedUnit.unitText, selectedColVal, ROW_3_MID);
                 }
             }
@@ -272,12 +303,12 @@ function checkGridClick(coordX, coordY){
             console.log("Row 4");
             if(playerTurn == 1 && selectedCol == 'A'){
                 if(selectedUnit != null){
-                    spawnedUnit = createUnit(selectedUnit); 
+                    spawnedUnit = createUnit(selectedUnit, [0, 4]); 
                     ctx.fillText(spawnedUnit.unitText, selectedColVal, ROW_4_MID);
                 }
             } else if(playerTurn == 2 && selectedCol == 'F'){
                 if(selectedUnit != null){
-                    spawnedUnit = createUnit(selectedUnit); 
+                    spawnedUnit = createUnit(selectedUnit, [5, 4]); 
                     ctx.fillText(spawnedUnit.unitText, selectedColVal, ROW_4_MID);
                 }
             }
@@ -287,12 +318,12 @@ function checkGridClick(coordX, coordY){
             console.log("Row 5");
             if(playerTurn == 1 && selectedCol == 'A'){
                 if(selectedUnit != null){
-                    spawnedUnit = createUnit(selectedUnit); 
+                    spawnedUnit = createUnit(selectedUnit, [0, 5]); 
                     ctx.fillText(spawnedUnit.unitText, selectedColVal, ROW_5_MID);
                 }
             } else if(playerTurn == 2 && selectedCol == 'F'){
                 if(selectedUnit != null){
-                    spawnedUnit = createUnit(selectedUnit); 
+                    spawnedUnit = createUnit(selectedUnit, [5, 5]); 
                     ctx.fillText(spawnedUnit.unitText, selectedColVal, ROW_5_MID);
                 }
             }
@@ -307,16 +338,25 @@ function checkGridClick(coordX, coordY){
     console.log(clickInGrid);
 }
 
-function createUnit(selectedUnit){
+function createUnit(selectedUnit, position){
     switch(selectedUnit){
         case 'pawn':
-            return new Pawn();
+            p = new Pawn();
+            p.position = position;
+            spawnedObjects.push(p);
+            return p;
             break;
         case 'militia':
-            return new Militia();
+            m = new Militia();
+            m.position = position;
+            spawnedObjects.push(m);
+            return m;
             break;
         case 'knight':
-            return new Knight();
+            k = new Knight();
+            k.position = position;
+            spawnedObjects.push(k);
+            return k;
             break;
     }
 }

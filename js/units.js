@@ -13,6 +13,8 @@ class Unit {
         this.attack = attack;
         this.movement = movement;
         this.position = position;
+        this.nextPosition;
+        this.canMove = true;
     }
     // An abstract method.
     // foo() {
@@ -20,16 +22,15 @@ class Unit {
     //     throw new TypeError("Do not call abstract method foo from child.");
     // }
     // initialization goes here
-    set unitHealth(newHealth) {
-        this.health = newHealth;
-    }
 
-    set unitPosition(newPosition) {
-        this.position = newPosition;
-    }
-
-    get unitPosition() {
-        return this.position;
+    get nextPosition() {
+        var movementArray = this.movement;
+        var positionArray = this.position;
+        var newPosition = []
+        for(var i = 0; i < movementArray.length; i++){
+            newPosition[i] = movementArray[i] + positionArray[i];
+        }
+        return newPosition;
     }
 
 }
@@ -39,15 +40,6 @@ class Pawn extends Unit {
         super(1, 1, [1, 0]);
         this.unitText = 'I';
     }  
-
-    set unitPosition(newPosition) {
-        this.position = newPosition;
-    }
-    
-    drawUnit(ctx, color, unitText = 'M', positionX, positionY) {
-        ctx.fillStyle = color;
-        ctx.fillText = (unitText, positionX, positionY);
-    }
 }
 
 class Militia extends Unit {  
@@ -55,15 +47,6 @@ class Militia extends Unit {
         super(1, 1, [1, 1]);
         this.unitText = 'M';
     }  
-
-    set unitPosition(newPosition) {
-        this.position = newPosition;
-    }
-    
-    drawUnit(ctx, color, unitText = 'M', positionX, positionY) {
-        ctx.fillStyle = color;
-        ctx.fillText = (unitText, positionX, positionY);
-    }
 }
 
 class Knight extends Unit {
@@ -71,13 +54,4 @@ class Knight extends Unit {
         super(2, 2, [1, 0]);
         this.unitText = 'K';
     }  
-
-    set unitPosition(newPosition) {
-        this.position = newPosition;
-    }
-    
-    drawUnit(ctx, color, unitText = 'M', positionX, positionY) {
-        ctx.fillStyle = color;
-        ctx.fillText = (unitText, positionX, positionY);
-    }
 }
