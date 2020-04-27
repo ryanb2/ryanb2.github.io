@@ -8,6 +8,13 @@ body {
   padding-top: 54px;
 }
 
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+
 @media (min-width: 992px) {
   body {
     padding-top: 56px;
