@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/ryanb2.github.io/static/css/main.fb5c822f.chunk.css",
+    "main.js": "/ryanb2.github.io/static/js/main.e3045963.chunk.js",
+    "main.js.map": "/ryanb2.github.io/static/js/main.e3045963.chunk.js.map",
+    "runtime-main.js": "/ryanb2.github.io/static/js/runtime-main.0ad645d4.js",
+    "runtime-main.js.map": "/ryanb2.github.io/static/js/runtime-main.0ad645d4.js.map",
+    "static/js/2.94ede043.chunk.js": "/ryanb2.github.io/static/js/2.94ede043.chunk.js",
+    "static/js/2.94ede043.chunk.js.map": "/ryanb2.github.io/static/js/2.94ede043.chunk.js.map",
+    "index.html": "/ryanb2.github.io/index.html",
+    "precache-manifest.12c869e0c81cc1475a0a1a28452feea0.js": "/ryanb2.github.io/precache-manifest.12c869e0c81cc1475a0a1a28452feea0.js",
+    "service-worker.js": "/ryanb2.github.io/service-worker.js",
+    "static/css/main.fb5c822f.chunk.css.map": "/ryanb2.github.io/static/css/main.fb5c822f.chunk.css.map",
+    "static/js/2.94ede043.chunk.js.LICENSE.txt": "/ryanb2.github.io/static/js/2.94ede043.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.0ad645d4.js",
+    "static/js/2.94ede043.chunk.js",
+    "static/css/main.fb5c822f.chunk.css",
+    "static/js/main.e3045963.chunk.js"
+  ]
+}
